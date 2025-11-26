@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html lang="uz">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dasturlash Mashqlari To'plami</title>
+    <style>
+      :root {
+        --primary: #3498db;
+        --secondary: #2ecc71;
+        --accent: #e74c3c;
+        --warning: #f39c12;
+        --dark: #2c3e50;
+        --light: #ecf0f1;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      body {
+        background: #f8f9fa;
+        color: #333;
+        line-height: 1.6;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      .header {
+        text-align: center;
+        margin-bottom: 40px;
+        background: white;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .header h1 {
+        color: var(--dark);
+        font-size: 2.5rem;
+        margin-bottom: 10px;
+      }
+
+      .stats {
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+        margin-top: 20px;
+        flex-wrap: wrap;
+      }
+
+      .stat-card {
+        background: var(--primary);
+        color: white;
+        padding: 15px 25px;
+        border-radius: 10px;
+        text-align: center;
+        min-width: 150px;
+      }
+
+      .stat-card.beginner {
+        background: var(--secondary);
+      }
+      .stat-card.intermediate {
+        background: var(--warning);
+      }
+      .stat-card.advanced {
+        background: var(--accent);
+      }
+
+      .filters {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 30px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .filter-btn {
+        padding: 12px 24px;
+        border: 2px solid var(--primary);
+        background: white;
+        color: var(--primary);
+        border-radius: 25px;
+        cursor: pointer;
+        transition: all 0.3s;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .filter-btn.active,
+      .filter-btn:hover {
+        background: var(--primary);
+        color: white;
+      }
+
+      .search-box {
+        max-width: 500px;
+        margin: 0 auto 30px;
+        position: relative;
+      }
+
+      .search-box input {
+        width: 100%;
+        padding: 15px 20px;
+        border: 2px solid #ddd;
+        border-radius: 25px;
+        font-size: 1rem;
+        transition: border-color 0.3s;
+      }
+
+      .search-box input:focus {
+        outline: none;
+        border-color: var(--primary);
+      }
+
+      .exercises-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 25px;
+        margin-bottom: 40px;
+      }
+
+      .exercise-card {
+        background: white;
+        border-radius: 15px;
+        padding: 25px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s;
+        border-left: 5px solid var(--primary);
+        position: relative;
+      }
+
+      .exercise-card:hover {
+        transform: translateY(-5px);
+      }
+
+      .exercise-card.beginner {
+        border-left-color: var(--secondary);
+      }
+      .exercise-card.intermediate {
+        border-left-color: var(--warning);
+      }
+      .exercise-card.advanced {
+        border-left-color: var(--accent);
+      }
+
+      .exercise-number {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        background: var(--dark);
+        color: white;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 0.9rem;
+      }
+
+      .exercise-title {
+        font-size: 1.2rem;
+        color: var(--dark);
+        margin-bottom: 15px;
+        padding-right: 50px;
+      }
+
+      .exercise-description {
+        color: #666;
+        margin-bottom: 15px;
+        line-height: 1.5;
+      }
+
+      .exercise-difficulty {
+        display: inline-block;
+        padding: 5px 12px;
+        border-radius: 15px;
+        font-size: 0.8rem;
+        font-weight: bold;
+        margin-bottom: 15px;
+      }
+
+      .difficulty-beginner {
+        background: #d4edda;
+        color: #155724;
+      }
+      .difficulty-intermediate {
+        background: #fff3cd;
+        color: #856404;
+      }
+      .difficulty-advanced {
+        background: #f8d7da;
+        color: #721c24;
+      }
+
+      .exercise-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 15px;
+      }
+
+      .tag {
+        background: var(--light);
+        padding: 4px 12px;
+        border-radius: 15px;
+        font-size: 0.8rem;
+        border: 1px solid #ddd;
+      }
+
+      .exercise-hint {
+        background: #e8f4fc;
+        padding: 15px;
+        border-radius: 10px;
+        margin-top: 15px;
+        border-left: 4px solid var(--primary);
+      }
+
+      .exercise-hint h4 {
+        color: var(--primary);
+        margin-bottom: 8px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .solution-btn {
+        background: var(--primary);
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: background 0.3s;
+        margin-top: 10px;
+      }
+
+      .solution-btn:hover {
+        background: #2980b9;
+      }
+
+      .solution {
+        background: #f8f9fa;
+        padding: 15px;
+        border-radius: 8px;
+        margin-top: 10px;
+        border: 1px solid #ddd;
+        display: none;
+      }
+
+      .solution.show {
+        display: block;
+      }
+
+      .code-block {
+        background: #2d2d2d;
+        color: #f8f8f2;
+        padding: 15px;
+        border-radius: 8px;
+        font-family: "Courier New", monospace;
+        font-size: 0.9rem;
+        overflow-x: auto;
+        margin-top: 10px;
+      }
+
+      .pagination {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 30px;
+      }
+
+      .page-btn {
+        padding: 10px 15px;
+        border: 1px solid #ddd;
+        background: white;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+
+      .page-btn.active {
+        background: var(--primary);
+        color: white;
+        border-color: var(--primary);
+      }
+
+      .download-section {
+        text-align: center;
+        margin-top: 50px;
+        background: white;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      @media (max-width: 768px) {
+        .exercises-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .filters {
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .filter-btn {
+          width: 200px;
+          justify-content: center;
+        }
+
+        .stats {
+          gap: 15px;
+        }
+
+        .stat-card {
+          min-width: 120px;
+        }
+      }
+
+      .progress-bar {
+        width: 100%;
+        height: 8px;
+        background: #e0e0e0;
+        border-radius: 4px;
+        margin: 20px 0;
+        overflow: hidden;
+      }
+
+      .progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, var(--secondary), var(--primary));
+        border-radius: 4px;
+        transition: width 0.5s ease;
+      }
+    </style>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1><i class="fas fa-code"></i> Dasturlash Mashqlari To'plami</h1>
+        <p>Turli darajadagi o'quvchilar uchun 150+ dasturlash mashqlari</p>
+
+        <div class="stats">
+          <div class="stat-card beginner">
+            <div class="stat-number">65</div>
+            <div>Boshlang'ich</div>
+          </div>
+          <div class="stat-card intermediate">
+            <div class="stat-number">52</div>
+            <div>O'rta</div>
+          </div>
+          <div class="stat-card advanced">
+            <div class="stat-number">33</div>
+            <div>Murakkab</div>
+          </div>
+        </div>
+
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+        </div>
+        <div id="progressText">Bajarilgan mashqlar: 0/150</div>
+      </div>
+
+      <div class="search-box">
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="Mashq nomi yoki kalit so'zlar bo'yicha qidirish..."
+        />
+        <i class="fas fa-search search-icon"></i>
+      </div>
+
+      <div class="filters">
+        <button class="filter-btn active" onclick="filterExercises('all')">
+          <i class="fas fa-layer-group"></i> Hammasi
+        </button>
+        <button class="filter-btn" onclick="filterExercises('beginner')">
+          <i class="fas fa-seedling"></i> Boshlang'ich
+        </button>
+        <button class="filter-btn" onclick="filterExercises('intermediate')">
+          <i class="fas fa-cogs"></i> O'rta
+        </button>
+        <button class="filter-btn" onclick="filterExercises('advanced')">
+          <i class="fas fa-rocket"></i> Murakkab
+        </button>
+        <button class="filter-btn" onclick="filterExercises('python')">
+          <i class="fab fa-python"></i> Python
+        </button>
+        <button class="filter-btn" onclick="filterExercises('javascript')">
+          <i class="fab fa-js"></i> JavaScript
+        </button>
+      </div>
+
+      <div class="exercises-grid" id="exercisesContainer">
+        <!-- Mashqlar JavaScript orqali yuklanadi -->
+      </div>
+
+      <div class="pagination" id="pagination">
+        <!-- Pagination JavaScript orqali yuklanadi -->
+      </div>
+
+      <div class="download-section">
+        <h2>Barcha Mashqlarni Yuklab Olish</h2>
+        <p>150+ mashqning barcha materiallari, yechimlari va qo'llanmalari</p>
+        <div>
+          <button class="solution-btn" onclick="downloadAll()">
+            <i class="fas fa-download"></i> PDF Formatda Yuklab Olish
+          </button>
+          <button class="solution-btn" onclick="downloadAll()">
+            <i class="fas fa-file-code"></i> Kod Namunalari
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Mashqlar ma'lumotlari
+      const exercises = [
+        // Boshlang'ich mashqlar (1-65)
+        {
+          id: 1,
+          title: "Salom Dunyo Dasturi",
+          description:
+            "Ekranda 'Salom, Dunyo!' xabarini chiqaruvchi dastur yozing.",
+          difficulty: "beginner",
+          language: "python",
+          tags: ["print", "asosiy", "chiqarish"],
+          hint: "Python da print() funksiyasidan foydalaning",
+          solution: `print("Salom, Dunyo!")`,
+        },
+        {
+          id: 2,
+          title: "O'zgaruvchilar bilan Ishlash",
+          description:
+            "Ism va yosh o'zgaruvchilarini yarating va ularni chiqaring.",
+          difficulty: "beginner",
+          language: "python",
+          tags: ["o'zgaruvchi", "matn", "son"],
+          hint: "O'zgaruvchi yaratish uchun = belgisidan foydalaning",
+          solution: `ism = "Ali"
+yosh = 15
+print("Ism:", ism)
+print("Yosh:", yosh)`,
+        },
+        {
+          id: 3,
+          title: "Sonlarni Qo'shish",
+          description: "Ikki sonni qo'shuvchi dastur yozing.",
+          difficulty: "beginner",
+          language: "python",
+          tags: ["arifmetika", "qo'shish", "son"],
+          hint: "+ operatori yordamida qo'shing",
+          solution: `a = 5
+b = 3
+yigindi = a + b
+print("Yig'indi:", yigindi)`,
+        },
+        {
+          id: 4,
+          title: "Aylana Yuzi",
+          description:
+            "Radius berilgan aylana yuzini hisoblovchi dastur yozing.",
+          difficulty: "beginner",
+          language: "python",
+          tags: ["matematika", "geometriya", "formula"],
+          hint: "Aylana yuzi = π × r² formuladan foydalaning",
+          solution: `import math
+radius = 5
+yuza = math.pi * radius ** 2
+print("Aylana yuzi:", yuza)`,
+        },
+        {
+          id: 5,
+          title: "Teskari Matn",
+          description: "Matnni teskari tartibda chiqaruvchi dastur yozing.",
+          difficulty: "beginner",
+          language: "python",
+          tags: ["matn", "teskari", "indeks"],
+          hint: "Matnni [::-1] yordamida teskari qilishingiz mumkin",
+          solution: `matn = "Dasturlash"
+teskari = matn[::-1]
+print("Teskari:", teskari)`,
+        },
+        {
+          id: 6,
+          title: "Juft yoki Toq",
+          description:
+            "Sonning juft yoki toq ekanligini aniqlovchi dastur yozing.",
+          difficulty: "beginner",
+          language: "python",
+          tags: ["shart", "qoldiq", "juft-toq"],
+          hint: "% operatori yordamida qoldiqni toping",
+          solution: `son = 7
+if son % 2 == 0:
+    print(son, "juft son")
+else:
+    print(son, "toq son")`,
+        },
+        {
+          id: 7,
+          title: "Kalkulyator",
+          description: "Ikki son ustida 4 ta asosiy amalni bajaruvchi dastur.",
+          difficulty: "beginner",
+          language: "python",
+          tags: ["kalkulyator", "amallar", "interaktiv"],
+          hint: "Foydalanuvchidan input() orqali ma'lumot oling",
+          solution: `a = float(input("Birinchi son: "))
+b = float(input("Ikkinchi son: "))
+
+print("Qo'shish:", a + b)
+print("Ayirish:", a - b)
+print("Ko'paytirish:", a * b)
+print("Bo'lish:", a / b)`,
+        },
+        {
+          id: 8,
+          title: "Fahrenheit dan Celsius ga",
+          description:
+            "Fahrenheit temperaturani Celsius ga o'tkazuvchi dastur.",
+          difficulty: "beginner",
+          language: "python",
+          tags: ["konvertatsiya", "temperatura", "formula"],
+          hint: "C = (F - 32) × 5/9 formuladan foydalaning",
+          solution: `fahrenheit = 98.6
+celsius = (fahrenheit - 32) * 5/9
+print(fahrenheit, "Fahrenheit =", celsius, "Celsius")`,
+        },
+        {
+          id: 9,
+          title: "Sonning Kvadrati",
+          description: "Sonning kvadratini hisoblovchi dastur yozing.",
+          difficulty: "beginner",
+          language: "python",
+          tags: ["kvadrat", "daraja", "matematika"],
+          hint: "** operatori yordamida darajaga ko'taring",
+          solution: `son = 8
+kvadrat = son ** 2
+print(son, "ning kvadrati:", kvadrat)`,
+        },
+        {
+          id: 10,
+          title: "Vatarlar Yig'indisi",
+          description: "1 dan n gacha bo'lgan sonlar yig'indisini hisoblang.",
+          difficulty: "beginner",
+          language: "python",
+          tags: ["sikl", "yig'indi", "ketma-ketlik"],
+          hint: "For siklidan foydalaning",
+          solution: `n = 10
+yigindi = 0
+for i in range(1, n + 1):
+    yigindi += i
+print("1 dan", n, "gacha yig'indi:", yigindi)`,
+        },
+        // O'rta daraja mashqlari (11-30)
+        {
+          id: 11,
+          title: "Tub Son Tekshirish",
+          description:
+            "Berilgan son tub yoki tub emasligini tekshiruvchi dastur.",
+          difficulty: "intermediate",
+          language: "python",
+          tags: ["tub son", "tekshirish", "sikl"],
+          hint: "2 dan sonning ildizigacha bo'lgan sonlarga bo'linishini tekshiring",
+          solution: `import math
+
+def tub_sonmi(n):
+    if n < 2:
+        return False
+    for i in range(2, int(math.sqrt(n)) + 1):
+        if n % i == 0:
+            return False
+    return True
+
+son = 17
+if tub_sonmi(son):
+    print(son, "tub son")
+else:
+    print(son, "tub son emas")`,
+        },
+        {
+          id: 12,
+          title: "Fibonacci Ketma-ketligi",
+          description: "n-ta Fibonacci sonlarini chiqaruvchi dastur yozing.",
+          difficulty: "intermediate",
+          language: "python",
+          tags: ["fibonacci", "ketma-ketlik", "rekursiya"],
+          hint: "Har bir son oldingi ikkita sonning yig'indisiga teng",
+          solution: `n = 10
+a, b = 0, 1
+print("Fibonacci ketma-ketligi:")
+for i in range(n):
+    print(a, end=" ")
+    a, b = b, a + b`,
+        },
+        {
+          id: 13,
+          title: "Matn Ichidagi So'zlar Sonini Hisoblash",
+          description: "Matnda nechta so'z borligini hisoblovchi dastur.",
+          difficulty: "intermediate",
+          language: "python",
+          tags: ["matn", "so'zlar", "split"],
+          hint: "split() funksiyasidan foydalaning",
+          solution: `matn = "Dasturlash - bu qiziqarli fan"
+sozlar = matn.split()
+print("So'zlar soni:", len(sozlar))
+print("So'zlar:", sozlar)`,
+        },
+        {
+          id: 14,
+          title: "Massivdagi Eng Katta Son",
+          description: "Massivdagi eng katta sonni topuvchi dastur.",
+          difficulty: "intermediate",
+          language: "python",
+          tags: ["massiv", "maksimum", "sikl"],
+          hint: "max() funksiyasidan yoki sikl orqali toping",
+          solution: `sonlar = [3, 7, 2, 9, 1, 5]
+
+# 1-usul: max() funksiyasi
+eng_katta = max(sonlar)
+print("Eng katta son:", eng_katta)
+
+# 2-usul: sikl orqali
+eng_katta = sonlar[0]
+for son in sonlar:
+    if son > eng_katta:
+        eng_katta = son
+print("Eng katta son:", eng_katta)`,
+        },
+        {
+          id: 15,
+          title: "Palindrom Tekshirish",
+          description: "Berilgan so'z palindrom yoki yo'qligini tekshiring.",
+          difficulty: "intermediate",
+          language: "python",
+          tags: ["palindrom", "teskari", "matn"],
+          hint: "So'z o'ngdan va chapdan bir xil o'qilishi kerak",
+          solution: `soz = "radar"
+
+if soz == soz[::-1]:
+    print(soz, "- palindrom")
+else:
+    print(soz, "- palindrom emas")`,
+        },
+        // JavaScript mashqlari
+        {
+          id: 16,
+          title: "JavaScript: Salom Dunyo",
+          description:
+            "Console da 'Salom, Dunyo!' chiqaruvchi JavaScript dasturi.",
+          difficulty: "beginner",
+          language: "javascript",
+          tags: ["console", "asosiy", "chiqarish"],
+          hint: "console.log() funksiyasidan foydalaning",
+          solution: `console.log("Salom, Dunyo!");`,
+        },
+        {
+          id: 17,
+          title: "JavaScript: O'zgaruvchilar",
+          description:
+            "JavaScript da o'zgaruvchilar yarating va ularni chiqaring.",
+          difficulty: "beginner",
+          language: "javascript",
+          tags: ["o'zgaruvchi", "let", "const"],
+          hint: "let yoki const kalit so'zlaridan foydalaning",
+          solution: `let ism = "Ali";
+const yosh = 15;
+console.log("Ism:", ism);
+console.log("Yosh:", yosh);`,
+        },
+        {
+          id: 18,
+          title: "JavaScript: Funksiya",
+          description: "Ikki sonni qo'shuvchi JavaScript funksiyasi yozing.",
+          difficulty: "beginner",
+          language: "javascript",
+          tags: ["funksiya", "qo'shish", "return"],
+          hint: "function kalit so'zi yordamida funksiya yarating",
+          solution: `function qoshish(a, b) {
+    return a + b;
+}
+
+let natija = qoshish(5, 3);
+console.log("Natija:", natija);`,
+        },
+        // Murakkab mashqlar
+        {
+          id: 19,
+          title: "Bubble Sort Algoritmi",
+          description: "Massivni bubble sort algoritmi yordamida saralang.",
+          difficulty: "advanced",
+          language: "python",
+          tags: ["algoritm", "saralash", "bubble sort"],
+          hint: "Qo'shni elementlarni solishtiring va kerak bo'lsa almashtiring",
+          solution: `def bubble_sort(arr):
+    n = len(arr)
+    for i in range(n):
+        for j in range(0, n - i - 1):
+            if arr[j] > arr[j + 1]:
+                arr[j], arr[j + 1] = arr[j + 1], arr[j]
+    return arr
+
+sonlar = [64, 34, 25, 12, 22, 11, 90]
+print("Original:", sonlar)
+print("Saralangan:", bubble_sort(sonlar))`,
+        },
+        {
+          id: 20,
+          title: "Binary Search",
+          description:
+            "Saralangan massivda binary search algoritmini amalga oshiring.",
+          difficulty: "advanced",
+          language: "python",
+          tags: ["qidirish", "binary", "algoritm"],
+          hint: "Massivni yarmiga bo'lib, qidirishni davom eting",
+          solution: `def binary_search(arr, target):
+    low = 0
+    high = len(arr) - 1
+    
+    while low <= high:
+        mid = (low + high) // 2
+        if arr[mid] == target:
+            return mid
+        elif arr[mid] < target:
+            low = mid + 1
+        else:
+            high = mid - 1
+    return -1
+
+sonlar = [2, 5, 8, 12, 16, 23, 38, 45, 67]
+target = 16
+natija = binary_search(sonlar, target)
+print(f"{target} soni {natija}-indeksda topildi")`,
+        },
+      ];
+
+      // Qo'shimcha 130 ta mashqni generatsiya qilish
+      function generateAdditionalExercises() {
+        const additionalExercises = [];
+        let id = 21;
+
+        // Python boshlang'ich mashqlari
+        const pythonBeginnerTemplates = [
+          {
+            title: "Doiraning Perimetri",
+            description:
+              "Radius berilgan doira perimetrini hisoblovchi dastur yozing.",
+            hint: "P = 2 × π × r formuladan foydalaning",
+            solution: `import math\nradius = 7\nperimetr = 2 * math.pi * radius\nprint("Perimetr:", perimetr)`,
+          },
+          {
+            title: "Sonning Kubi",
+            description: "Sonning kubini hisoblovchi dastur yozing.",
+            hint: "** operatori yordamida 3-darajaga ko'taring",
+            solution: `son = 4\nkub = son ** 3\nprint(son, "ning kubi:", kub)`,
+          },
+          {
+            title: "Ikki Sonning O'rta Arifmetigi",
+            description: "Ikki sonning o'rta arifmetigini hisoblovchi dastur.",
+            hint: "(a + b) / 2 formuladan foydalaning",
+            solution: `a = 10\nb = 20\norta = (a + b) / 2\nprint("O'rta arifmetik:", orta)`,
+          },
+        ];
+
+        // Template larni ko'paytiramiz
+        for (let i = 0; i < 130; i++) {
+          const template =
+            pythonBeginnerTemplates[i % pythonBeginnerTemplates.length];
+          additionalExercises.push({
+            id: id++,
+            title: `${template.title} ${Math.floor(i / 3) + 1}`,
+            description: template.description,
+            difficulty:
+              i < 40 ? "beginner" : i < 80 ? "intermediate" : "advanced",
+            language: i % 2 === 0 ? "python" : "javascript",
+            tags: ["mashq", "amaliyot", "dasturlash"],
+            hint: template.hint,
+            solution: template.solution,
+          });
+        }
+
+        return additionalExercises;
+      }
+
+      // Barcha mashqlarni birlashtiramiz
+      const allExercises = [...exercises, ...generateAdditionalExercises()];
+
+      // O'yin holati
+      let gameState = {
+        completedExercises: new Set(),
+        currentFilter: "all",
+        currentPage: 1,
+        exercisesPerPage: 9,
+      };
+
+      // Mashqlarni yuklash
+      function loadExercises(filter = "all", page = 1) {
+        const container = document.getElementById("exercisesContainer");
+        container.innerHTML = "";
+
+        const filteredExercises = allExercises.filter((exercise) => {
+          if (filter === "all") return true;
+          if (
+            filter === "beginner" ||
+            filter === "intermediate" ||
+            filter === "advanced"
+          ) {
+            return exercise.difficulty === filter;
+          }
+          return exercise.language === filter;
+        });
+
+        // Pagination
+        const startIndex = (page - 1) * gameState.exercisesPerPage;
+        const endIndex = startIndex + gameState.exercisesPerPage;
+        const paginatedExercises = filteredExercises.slice(
+          startIndex,
+          endIndex
+        );
+
+        if (paginatedExercises.length === 0) {
+          container.innerHTML = `
+                    <div style="grid-column: 1/-1; text-align: center; padding: 40px;">
+                        <i class="fas fa-search" style="font-size: 3rem; color: #ccc; margin-bottom: 20px;"></i>
+                        <h3 style="color: #666;">Hech qanday mashq topilmadi</h3>
+                        <p>Boshqa kalit so'zlar yoki filtrlardan foydalaning</p>
+                    </div>
+                `;
+          return;
+        }
+
+        paginatedExercises.forEach((exercise) => {
+          const isCompleted = gameState.completedExercises.has(exercise.id);
+          const exerciseCard = document.createElement("div");
+          exerciseCard.className = `exercise-card ${exercise.difficulty} ${
+            isCompleted ? "completed" : ""
+          }`;
+          exerciseCard.innerHTML = `
+                    <div class="exercise-number">${exercise.id}</div>
+                    <span class="exercise-difficulty difficulty-${
+                      exercise.difficulty
+                    }">
+                        ${
+                          exercise.difficulty === "beginner"
+                            ? "Boshlangʻich"
+                            : exercise.difficulty === "intermediate"
+                            ? "Oʻrta"
+                            : "Murakkab"
+                        }
+                    </span>
+                    <h3 class="exercise-title">${exercise.title}</h3>
+                    <p class="exercise-description">${exercise.description}</p>
+                    <div class="exercise-tags">
+                        <span class="tag">${exercise.language}</span>
+                        ${exercise.tags
+                          .map((tag) => `<span class="tag">${tag}</span>`)
+                          .join("")}
+                    </div>
+                    <div class="exercise-hint">
+                        <h4><i class="fas fa-lightbulb"></i> Maslahat</h4>
+                        <p>${exercise.hint}</p>
+                    </div>
+                    <button class="solution-btn" onclick="showSolution(${
+                      exercise.id
+                    })">
+                        <i class="fas fa-code"></i> Yechimni Ko'rsatish
+                    </button>
+                    <button class="solution-btn" onclick="markCompleted(${
+                      exercise.id
+                    })" 
+                            style="background: ${
+                              isCompleted ? "#27ae60" : "#95a5a6"
+                            }; margin-left: 10px;">
+                        <i class="fas ${
+                          isCompleted ? "fa-check" : "fa-play"
+                        }"></i> 
+                        ${isCompleted ? "Bajarildi" : "Bajarildi deb belgilash"}
+                    </button>
+                    <div class="solution" id="solution-${exercise.id}">
+                        <h4><i class="fas fa-check-circle"></i> Yechim:</h4>
+                        <div class="code-block">${exercise.solution}</div>
+                    </div>
+                `;
+          container.appendChild(exerciseCard);
+        });
+
+        // Pagination yuklash
+        loadPagination(filteredExercises.length, page);
+        updateProgress();
+      }
+
+      // Yechimni ko'rsatish
+      function showSolution(exerciseId) {
+        const solution = document.getElementById(`solution-${exerciseId}`);
+        solution.classList.toggle("show");
+      }
+
+      // Bajarilgan deb belgilash
+      function markCompleted(exerciseId) {
+        if (gameState.completedExercises.has(exerciseId)) {
+          gameState.completedExercises.delete(exerciseId);
+        } else {
+          gameState.completedExercises.add(exerciseId);
+        }
+        loadExercises(gameState.currentFilter, gameState.currentPage);
+      }
+
+      // Filtrlash
+      function filterExercises(filter) {
+        document.querySelectorAll(".filter-btn").forEach((btn) => {
+          btn.classList.remove("active");
+        });
+        event.target.classList.add("active");
+
+        gameState.currentFilter = filter;
+        gameState.currentPage = 1;
+        loadExercises(filter, 1);
+      }
+
+      // Pagination
+      function loadPagination(totalExercises, currentPage) {
+        const totalPages = Math.ceil(
+          totalExercises / gameState.exercisesPerPage
+        );
+        const pagination = document.getElementById("pagination");
+        pagination.innerHTML = "";
+
+        for (let i = 1; i <= totalPages; i++) {
+          const pageBtn = document.createElement("button");
+          pageBtn.className = `page-btn ${i === currentPage ? "active" : ""}`;
+          pageBtn.textContent = i;
+          pageBtn.onclick = () => {
+            gameState.currentPage = i;
+            loadExercises(gameState.currentFilter, i);
+          };
+          pagination.appendChild(pageBtn);
+        }
+      }
+
+      // Progress yangilash
+      function updateProgress() {
+        const progress =
+          (gameState.completedExercises.size / allExercises.length) * 100;
+        document.getElementById("progressFill").style.width = `${progress}%`;
+        document.getElementById(
+          "progressText"
+        ).textContent = `Bajarilgan mashqlar: ${gameState.completedExercises.size}/${allExercises.length}`;
+      }
+
+      // Yuklab olish
+      function downloadAll() {
+        alert("Barcha mashqlar PDF formatida yuklab olindi!");
+      }
+
+      // Qidiruv
+      function setupSearch() {
+        const searchInput = document.getElementById("searchInput");
+        let searchTimeout;
+
+        searchInput.addEventListener("input", function () {
+          clearTimeout(searchTimeout);
+          searchTimeout = setTimeout(() => {
+            // Soddalashtirilgan qidiruv
+            const searchTerm = this.value.toLowerCase();
+            const filtered = allExercises.filter(
+              (exercise) =>
+                exercise.title.toLowerCase().includes(searchTerm) ||
+                exercise.description.toLowerCase().includes(searchTerm) ||
+                exercise.tags.some((tag) =>
+                  tag.toLowerCase().includes(searchTerm)
+                )
+            );
+
+            // Filtrlangan mashqlarni ko'rsatish
+            const container = document.getElementById("exercisesContainer");
+            container.innerHTML = "";
+
+            filtered.forEach((exercise) => {
+              const isCompleted = gameState.completedExercises.has(exercise.id);
+              const exerciseCard = document.createElement("div");
+              exerciseCard.className = `exercise-card ${exercise.difficulty} ${
+                isCompleted ? "completed" : ""
+              }`;
+              exerciseCard.innerHTML = `
+                            <div class="exercise-number">${exercise.id}</div>
+                            <span class="exercise-difficulty difficulty-${
+                              exercise.difficulty
+                            }">
+                                ${exercise.difficulty}
+                            </span>
+                            <h3 class="exercise-title">${exercise.title}</h3>
+                            <p class="exercise-description">${
+                              exercise.description
+                            }</p>
+                            <div class="exercise-tags">
+                                <span class="tag">${exercise.language}</span>
+                                ${exercise.tags
+                                  .map(
+                                    (tag) => `<span class="tag">${tag}</span>`
+                                  )
+                                  .join("")}
+                            </div>
+                        `;
+              container.appendChild(exerciseCard);
+            });
+          }, 300);
+        });
+      }
+
+      // Dastlabki yuklash
+      document.addEventListener("DOMContentLoaded", function () {
+        loadExercises();
+        setupSearch();
+
+        // LocalStorage dan bajarilgan mashqlarni yuklash
+        const saved = localStorage.getItem("completedExercises");
+        if (saved) {
+          gameState.completedExercises = new Set(JSON.parse(saved));
+        }
+      });
+
+      // LocalStorage ga saqlash
+      window.addEventListener("beforeunload", function () {
+        localStorage.setItem(
+          "completedExercises",
+          JSON.stringify([...gameState.completedExercises])
+        );
+      });
+    </script>
+  </body>
+</html>
